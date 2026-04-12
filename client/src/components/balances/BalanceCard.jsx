@@ -1,6 +1,5 @@
 import Avatar from '../common/Avatar';
 import Button from '../common/Button';
-import RemindButton from './RemindButton';
 import NudgeButton from '../nudge/NudgeButton';
 import { fmt, convert } from '../../utils/currencyUtils';
 import { useCurrency } from '../../context/CurrencyContext';
@@ -60,7 +59,6 @@ const BalanceCard = ({ from, to, amount, currency, onSettle, onNudge, groupId, c
         {isCreditor && (
           <>
             <NudgeButton targetUser={from} amount={fmt(displayAmount, targetCurrency)} groupId={groupId} />
-            <RemindButton creditorName={to.name} amount={displayAmount} currency={targetCurrency} groupName="Group" targetPhone={from.phone} />
           </>
         )}
         <Button variant="accent" size="sm" onClick={() => onSettle?.(from.id, to.id, amount, currency)}>

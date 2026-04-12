@@ -2,13 +2,15 @@ const prisma = require('../prisma');
 const { CustomError } = require('../middleware/errorHandler');
 
 exports.sendNudge = async (reqUserId, toUserId, groupId, tone) => {
-  // Verify both users are in the same group
-  const groupUser = await prisma.groupMember.findFirst({
-    where: { groupId, userId: reqUserId }
-  });
-  
-  if (!groupUser) {
-    throw new CustomError('Not authorized for this group', 403);
+  // Verify both users are in the same group (if a groupId is provided)
+  if (groupId) {
+    const groupUser = await prisma.groupMember.findFirst({
+      where: { groupId, userId: reqUserId }
+    });
+    
+    if (!groupUser) {
+      throw new CustomError('Not authorized for this group', 403);
+    }
   }
 
   const targetUser = await prisma.user.findUnique({

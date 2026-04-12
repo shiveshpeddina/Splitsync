@@ -11,12 +11,17 @@ const NudgeTonePicker = ({ isOpen, onClose, targetUser, amount, groupId, onNudge
   const [error, setError] = useState(null);
 
   const handleSend = async () => {
-    try {
-      setLoading(true);
-      setError(null);
-      // Log the nudge on our backend
-      await sendNudge(targetUser.id, groupId, selectedTone);
+    setLoading(true);
+    setError(null);
 
+    try {
+      // Log the nudge on our backend (fail silently if it hiccups, we still want to open whatsapp)
+      await sendNudge(targetUser.id, groupId, selectedTone);
+    } catch (err) {
+      console.warn('Backend nudge tracking failed:', err);
+    }
+
+    try {
       // Actually launch the Notification/Message on their device!
       const textToShare = formatNudge(selectedTone, targetUser?.name, amount);
       const phone = targetUser?.phone;
@@ -45,7 +50,7 @@ const NudgeTonePicker = ({ isOpen, onClose, targetUser, amount, groupId, onNudge
       if (err instanceof Error && err.name === 'AbortError') {
         // User cancelled the native share sheet, ignore
       } else {
-        setError(err?.response?.data?.message || 'Failed to send nudge');
+        setError('Failed to open sharing action');
       }
     } finally {
       setLoading(false);
