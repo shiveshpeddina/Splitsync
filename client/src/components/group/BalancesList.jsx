@@ -4,6 +4,7 @@ import Button from '../ui/Button';
 import Avatar from '../ui/Avatar';
 import { AvatarDisplay } from '../common/AvatarPicker';
 import { fmt, convert } from '../../utils/currencyUtils';
+import NudgeButton from '../nudge/NudgeButton';
 import styles from './BalancesList.module.css';
 
 export default function BalancesList({ 
@@ -11,7 +12,9 @@ export default function BalancesList({
   members, 
   currency, 
   rates, 
-  onSettle 
+  onSettle,
+  groupId,
+  currentUserId
 }) {
   const [animatedWidths, setAnimatedWidths] = useState({});
 
@@ -97,21 +100,14 @@ export default function BalancesList({
             </div>
 
             <div className={styles.actionRow}>
-              <Button variant="ghost" size="small" className={styles.actionBtn}>
-                👋 Nudge
-              </Button>
-              <Button 
-                variant="ghost-green" 
-                size="small" 
-                className={styles.actionBtn}
-                onClick={() => {
-                  const phoneNum = fromMember?.phone ? fromMember.phone.replace(/[^0-9\+]/g, '') : '';
-                  const msg = `Hey ${fromName}, please send ${fmt(displayAmount, settlementCurrency)} to ${toName} to settle our SplitSync balance.`;
-                  window.open(`https://wa.me/${phoneNum}?text=${encodeURIComponent(msg)}`, '_blank');
-                }}
-              >
-                📱 Remind on WhatsApp
-              </Button>
+              {currentUserId === toMember?.id && (
+                <NudgeButton 
+                  targetUser={fromMember}
+                  amount={fmt(displayAmount, settlementCurrency)}
+                  groupId={groupId}
+                  className={styles.actionBtn}
+                />
+              )}
               <Button 
                 variant="dark" 
                 size="small" 

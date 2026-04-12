@@ -230,6 +230,8 @@ export default function GroupDetailPage() {
                     currency={balanceDisplayCurrency}
                     rates={rates}
                     onSettle={handleSettle}
+                    groupId={group.id}
+                    currentUserId={user?.id}
                   />
                 </>
               )}

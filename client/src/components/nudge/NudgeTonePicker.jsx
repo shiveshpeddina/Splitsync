@@ -1,6 +1,6 @@
 import { useState } from 'react';
-import Modal from '../common/Modal';
-import Button from '../common/Button';
+import Modal from '../ui/Modal';
+import Button from '../ui/Button';
 import nudgeTones, { formatNudge } from '../../constants/nudgeTones';
 import { sendNudge } from '../../services/nudgeService';
 import './NudgeTonePicker.css';
@@ -58,7 +58,7 @@ const NudgeTonePicker = ({ isOpen, onClose, targetUser, amount, groupId, onNudge
   };
 
   return (
-    <Modal isOpen={isOpen} onClose={onClose} title="Send a Nudge" size="md">
+    <Modal isOpen={isOpen} onClose={onClose} title="Send a Nudge 👋">
       <div className="nudge-picker-container">
         <p className="nudge-picker-desc">
           How do you want to remind <strong>{targetUser?.name}</strong>?
@@ -91,11 +91,11 @@ const NudgeTonePicker = ({ isOpen, onClose, targetUser, amount, groupId, onNudge
         {error && <div className="nudge-error">{error}</div>}
 
         <div className="nudge-actions">
-          <Button variant="ghost" onClick={onClose} disabled={loading}>
+          <Button variant="ghost" size="medium" onClick={onClose} disabled={loading}>
             Cancel
           </Button>
-          <Button variant="accent" onClick={handleSend} loading={loading}>
-            Send Notification ✨
+          <Button variant="primary" size="medium" onClick={handleSend} loading={loading}>
+            Send via WhatsApp 💬
           </Button>
         </div>
       </div>

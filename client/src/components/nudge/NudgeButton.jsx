@@ -1,13 +1,13 @@
 import { useState } from 'react';
-import Button from '../common/Button';
+import Button from '../ui/Button';
 import NudgeTonePicker from './NudgeTonePicker';
 
-const NudgeButton = ({ targetUser, amount, groupId }) => {
+const NudgeButton = ({ targetUser, amount, groupId, className }) => {
   const [isOpen, setIsOpen] = useState(false);
 
   return (
     <>
-      <Button variant="ghost" size="sm" onClick={() => setIsOpen(true)}>
+      <Button variant="ghost" size="small" onClick={() => setIsOpen(true)} className={className}>
         👋 Nudge
       </Button>
       <NudgeTonePicker
@@ -17,7 +17,6 @@ const NudgeButton = ({ targetUser, amount, groupId }) => {
         amount={amount}
         groupId={groupId}
         onNudgeSent={() => {
-          // Could fire off a toast notification here
           console.log('Nudge sent successfully!');
         }}
       />
