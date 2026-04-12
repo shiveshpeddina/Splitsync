@@ -1,0 +1,487 @@
+# SplitWave — Expense Splitter App Framework
+
+## Tech Stack
+
+- **Frontend:** React (Vite)
+- **Backend:** Node.js + Express
+- **Database:** PostgreSQL (via Prisma ORM)
+- **Auth:** Firebase Auth (Google + Phone OTP)
+- **Currency API:** ExchangeRate-API (live rates, updated hourly)
+- **AI Receipt Scanner:** OpenAI GPT-4o Vision API
+- **Notifications:** Firebase Cloud Messaging (FCM)
+- **File Storage:** Firebase Storage (receipt images)
+- **Hosting:** Vercel (frontend) + Railway (backend)
+
+---
+
+## Folder Structure
+
+```
+splitwave/
+│
+├── client/                              # React frontend (Vite)
+│   ├── public/
+│   │   └── favicon.ico
+│   │
+│   ├── src/
+│   │   ├── main.jsx                     # Entry point
+│   │   ├── App.jsx                      # Root component + routing
+│   │   │
+│   │   ├── assets/
+│   │   │   ├── logo.svg
+│   │   │   └── illustrations/
+│   │   │
+│   │   ├── components/                  # Reusable UI components
+│   │   │   │
+│   │   │   ├── common/
+│   │   │   │   ├── Button.jsx
+│   │   │   │   ├── Input.jsx
+│   │   │   │   ├── Modal.jsx
+│   │   │   │   ├── Avatar.jsx
+│   │   │   │   ├── Badge.jsx
+│   │   │   │   ├── Loader.jsx
+│   │   │   │   └── Toast.jsx
+│   │   │   │
+│   │   │   ├── currency/
+│   │   │   │   ├── CurrencyConverter.jsx     # Full converter UI (all currencies)
+│   │   │   │   ├── CurrencySelector.jsx      # Dropdown with flags + codes
+│   │   │   │   ├── RateTable.jsx             # Live rates table (1 base → all)
+│   │   │   │   └── CurrencyBadge.jsx         # Flag + symbol inline pill
+│   │   │   │
+│   │   │   ├── expenses/
+│   │   │   │   ├── ExpenseCard.jsx           # Single expense display row
+│   │   │   │   ├── ExpenseForm.jsx           # Add / edit expense form
+│   │   │   │   ├── ExpenseList.jsx           # List of all group expenses
+│   │   │   │   ├── SplitTypeSelector.jsx     # Equal / Pct / Exact / Item tabs
+│   │   │   │   ├── PercentageSplit.jsx       # Sliders per member for % split
+│   │   │   │   ├── ExactSplit.jsx            # Manual amount entry per member
+│   │   │   │   ├── ItemizedSplit.jsx         # Per receipt item → assign member
+│   │   │   │   ├── VibeTagPicker.jsx         # Food / Drinks / Travel / Fun tags
+│   │   │   │   └── RecurringToggle.jsx       # Toggle + day picker for recurring
+│   │   │   │
+│   │   │   ├── groups/
+│   │   │   │   ├── GroupCard.jsx             # Group summary tile on home screen
+│   │   │   │   ├── GroupForm.jsx             # Create / edit group form
+│   │   │   │   ├── MemberChip.jsx            # Avatar + name removable pill
+│   │   │   │   ├── MemberList.jsx            # All members in a group
+│   │   │   │   └── GroupStats.jsx            # Total spent / per person / pending
+│   │   │   │
+│   │   │   ├── balances/
+│   │   │   │   ├── BalanceCard.jsx           # Single "A owes B ₹X" card
+│   │   │   │   ├── BalanceList.jsx           # Full simplified settlement list
+│   │   │   │   └── SettlementRow.jsx         # Balance row with "Mark paid" button
+│   │   │   │
+│   │   │   ├── receipt/
+│   │   │   │   ├── ReceiptScanner.jsx        # Camera / upload UI
+│   │   │   │   ├── ReceiptItemList.jsx       # AI-extracted items with amounts
+│   │   │   │   └── ItemAssigner.jsx          # Drag-assign items to members
+│   │   │   │
+│   │   │   ├── analytics/
+│   │   │   │   ├── SpendingPersonality.jsx   # "You're the Foodie!" card
+│   │   │   │   ├── CategoryBreakdown.jsx     # Donut chart by vibe tag
+│   │   │   │   ├── TimelineView.jsx          # Expenses on day-by-day timeline
+│   │   │   │   └── MemberSpendBar.jsx        # Horizontal bar per member
+│   │   │   │
+│   │   │   ├── nudge/
+│   │   │   │   ├── NudgeButton.jsx           # Trigger nudge from balance card
+│   │   │   │   └── NudgeTonePicker.jsx       # Gentle / Firm / Savage selector
+│   │   │   │
+│   │   │   └── spin/
+│   │   │       └── SpinWheel.jsx             # Animated spin-to-pay wheel
+│   │   │
+│   │   ├── pages/                       # One file per route/screen
+│   │   │   ├── Home.jsx                 # Dashboard — all groups list
+│   │   │   ├── Login.jsx                # Auth screen (Google / Phone)
+│   │   │   ├── GroupDetail.jsx          # Single group — expenses + balances tabs
+│   │   │   ├── AddExpense.jsx           # Full add expense page
+│   │   │   ├── Balances.jsx             # Settlements page for a group
+│   │   │   ├── CurrencyPage.jsx         # Multi-currency converter + rate table
+│   │   │   ├── Analytics.jsx            # Spending personality + charts
+│   │   │   ├── Profile.jsx              # User settings, home currency picker
+│   │   │   └── NotFound.jsx             # 404 fallback
+│   │   │
+│   │   ├── hooks/                       # Custom React hooks
+│   │   │   ├── useAuth.js               # Firebase auth state + user data
+│   │   │   ├── useGroup.js              # Group CRUD + members
+│   │   │   ├── useExpenses.js           # Expense CRUD + filters
+│   │   │   ├── useBalances.js           # Calculated + simplified balances
+│   │   │   ├── useCurrency.js           # Fetch + cache exchange rates
+│   │   │   ├── useReceipt.js            # Receipt upload + AI parse
+│   │   │   └── useNotifications.js      # FCM push setup + permission
+│   │   │
+│   │   ├── context/                     # Global app state (React Context)
+│   │   │   ├── AuthContext.jsx          # Logged-in user object
+│   │   │   ├── GroupContext.jsx         # Active group + members
+│   │   │   └── CurrencyContext.jsx      # Exchange rates + user home currency
+│   │   │
+│   │   ├── services/                    # All API call functions (Axios)
+│   │   │   ├── api.js                   # Axios instance with base URL + auth header
+│   │   │   ├── authService.js           # login(), register(), logout()
+│   │   │   ├── groupService.js          # getGroups(), createGroup(), addMember()
+│   │   │   ├── expenseService.js        # getExpenses(), addExpense(), deleteExpense()
+│   │   │   ├── balanceService.js        # getBalances(), markSettled()
+│   │   │   ├── currencyService.js       # getRates(), convertAmount()
+│   │   │   ├── receiptService.js        # uploadReceipt(), parseItems()
+│   │   │   └── nudgeService.js          # sendNudge(toUserId, tone)
+│   │   │
+│   │   ├── utils/                       # Pure helper functions (no React)
+│   │   │   ├── currencyUtils.js         # convert(), fmt(), toBase(), fromBase()
+│   │   │   ├── splitUtils.js            # equalSplit(), pctSplit(), exactSplit()
+│   │   │   ├── debtSimplifier.js        # Minimize transactions algorithm
+│   │   │   ├── personalityEngine.js     # Spending personality label logic
+│   │   │   ├── dateUtils.js             # Format dates, group expenses by day
+│   │   │   └── validators.js            # Form validation helpers
+│   │   │
+│   │   ├── constants/                   # Static config data
+│   │   │   ├── currencies.js            # All codes, names, symbols, flag emojis
+│   │   │   ├── vibeTags.js              # Tag names, emojis, color values
+│   │   │   ├── nudgeTones.js            # Message templates per tone
+│   │   │   └── personalities.js         # Personality label definitions + thresholds
+│   │   │
+│   │   └── styles/
+│   │       ├── globals.css              # CSS reset + root variables
+│   │       ├── theme.css                # Colors, fonts, spacing design tokens
+│   │       └── animations.css           # Spin wheel, page transitions
+│   │
+│   ├── index.html
+│   ├── vite.config.js
+│   └── package.json
+│
+│
+├── server/                              # Node.js + Express backend
+│   ├── src/
+│   │   ├── index.js                     # Starts server, registers middleware + routes
+│   │   │
+│   │   ├── routes/                      # Express route files
+│   │   │   ├── auth.routes.js           # POST /auth/login, /auth/register
+│   │   │   ├── group.routes.js          # CRUD /groups
+│   │   │   ├── expense.routes.js        # CRUD /expenses
+│   │   │   ├── balance.routes.js        # GET /balances, POST /settle
+│   │   │   ├── currency.routes.js       # GET /rates, GET /convert
+│   │   │   ├── receipt.routes.js        # POST /receipt/scan
+│   │   │   └── nudge.routes.js          # POST /nudge/send
+│   │   │
+│   │   ├── controllers/                 # Route handlers — parse req, call service, send res
+│   │   │   ├── auth.controller.js
+│   │   │   ├── group.controller.js
+│   │   │   ├── expense.controller.js
+│   │   │   ├── balance.controller.js
+│   │   │   ├── currency.controller.js
+│   │   │   ├── receipt.controller.js
+│   │   │   └── nudge.controller.js
+│   │   │
+│   │   ├── services/                    # Business logic — DB queries + external APIs
+│   │   │   ├── group.service.js
+│   │   │   ├── expense.service.js
+│   │   │   ├── balance.service.js       # Runs debt simplification
+│   │   │   ├── currency.service.js      # Fetches + caches rates from ExchangeRate-API
+│   │   │   ├── receipt.service.js       # Calls GPT-4o Vision, parses JSON items
+│   │   │   ├── nudge.service.js         # Builds message text, sends via FCM
+│   │   │   └── recurring.service.js     # Checks and logs due recurring expenses
+│   │   │
+│   │   ├── middleware/
+│   │   │   ├── auth.middleware.js        # Verifies Firebase JWT on every protected route
+│   │   │   ├── errorHandler.js           # Global error → standard JSON response
+│   │   │   └── rateLimiter.js            # Prevent API abuse (express-rate-limit)
+│   │   │
+│   │   ├── jobs/                        # Scheduled background tasks (node-cron)
+│   │   │   ├── currencyRefresh.job.js    # Runs every 1 hour — refresh all rates in DB
+│   │   │   └── recurringExpense.job.js   # Runs daily — auto-log due recurring expenses
+│   │   │
+│   │   └── utils/
+│   │       ├── debtSimplifier.js         # Minimize transactions algorithm (server copy)
+│   │       └── responseHelper.js         # success() and error() response formatters
+│   │
+│   ├── prisma/
+│   │   ├── schema.prisma                 # All DB table definitions
+│   │   └── migrations/                   # Auto-generated migration files
+│   │
+│   ├── .env                              # Secret keys — never commit this
+│   └── package.json
+│
+│
+└── docs/
+    ├── api.md                            # All endpoints with request/response examples
+    ├── features.md                       # Feature specs with acceptance criteria
+    └── db-schema.md                      # Visual table diagram + relationships
+```
+
+---
+
+## Database Schema (Prisma)
+
+```prisma
+// prisma/schema.prisma
+
+model User {
+  id            String        @id @default(uuid())
+  name          String
+  email         String        @unique
+  phone         String?
+  homeCurrency  String        @default("INR")
+  fcmToken      String?
+  createdAt     DateTime      @default(now())
+  groups        GroupMember[]
+  paidExpenses  Expense[]     @relation("Payer")
+  splits        Split[]
+}
+
+model Group {
+  id            String        @id @default(uuid())
+  name          String
+  emoji         String?
+  baseCurrency  String        @default("INR")
+  createdAt     DateTime      @default(now())
+  members       GroupMember[]
+  expenses      Expense[]
+}
+
+model GroupMember {
+  id       String @id @default(uuid())
+  user     User   @relation(fields: [userId], references: [id])
+  userId   String
+  group    Group  @relation(fields: [groupId], references: [id])
+  groupId  String
+  role     String @default("member")    // "admin" | "member"
+}
+
+model Expense {
+  id            String    @id @default(uuid())
+  group         Group     @relation(fields: [groupId], references: [id])
+  groupId       String
+  description   String
+  amount        Float
+  currency      String
+  amountInBase  Float     // Always stored in INR for balance calculation
+  vibeTag       String?   // "food" | "drinks" | "travel" | "fun" | "stay"
+  payer         User      @relation("Payer", fields: [payerId], references: [id])
+  payerId       String
+  splitType     String    @default("equal")  // "equal" | "percentage" | "exact" | "itemized"
+  isRecurring   Boolean   @default(false)
+  recurringDay  Int?      // Day of month (1-28) for auto-log
+  receiptUrl    String?   // Firebase Storage URL of scanned receipt image
+  createdAt     DateTime  @default(now())
+  splits        Split[]
+}
+
+model Split {
+  id          String    @id @default(uuid())
+  expense     Expense   @relation(fields: [expenseId], references: [id])
+  expenseId   String
+  user        User      @relation(fields: [userId], references: [id])
+  userId      String
+  amount      Float     // Share amount in INR
+  percentage  Float?    // Only populated for percentage splits
+  settled     Boolean   @default(false)
+  settledAt   DateTime?
+}
+
+model Settlement {
+  id          String   @id @default(uuid())
+  groupId     String
+  fromUserId  String
+  toUserId    String
+  amount      Float
+  currency    String
+  settledAt   DateTime @default(now())
+}
+
+model CurrencyRate {
+  id        String   @id @default(uuid())
+  base      String   // e.g. "INR"
+  target    String   // e.g. "USD"
+  rate      Float
+  updatedAt DateTime @updatedAt
+}
+```
+
+---
+
+## API Endpoints
+
+```
+AUTH
+  POST  /api/auth/login                    Verify Firebase token, return user profile
+  POST  /api/auth/register                 Create new user in DB
+
+GROUPS
+  GET   /api/groups                        All groups for logged-in user
+  POST  /api/groups                        Create a new group
+  GET   /api/groups/:id                    Single group with members + stats
+  PUT   /api/groups/:id                    Update group name / currency
+  DELETE /api/groups/:id                   Delete group
+  POST  /api/groups/:id/members            Add member by email or phone
+  DELETE /api/groups/:id/members/:userId   Remove member
+
+EXPENSES
+  GET   /api/expenses?groupId=             All expenses for a group
+  POST  /api/expenses                      Add new expense
+  PUT   /api/expenses/:id                  Edit expense
+  DELETE /api/expenses/:id                 Delete expense
+
+BALANCES
+  GET   /api/balances?groupId=             Simplified settlement list for group
+  POST  /api/balances/settle               Mark a debt as paid
+
+CURRENCY
+  GET   /api/currency/rates?base=INR       All exchange rates for a base currency
+  GET   /api/currency/convert?from=INR&to=USD&amount=5000
+
+RECEIPT
+  POST  /api/receipt/scan                  Upload image → returns extracted item list
+
+NUDGE
+  POST  /api/nudge/send
+        body: { toUserId, groupId, tone: "gentle" | "firm" | "savage" }
+```
+
+---
+
+## Utility Logic Explained
+
+### Debt Simplification Algorithm
+```
+File: utils/debtSimplifier.js  (used in both client and server)
+
+Step 1 — Calculate net balance per person:
+  netBalance = totalAmountTheyPaid - totalAmountOwed
+
+Step 2 — Split into two lists:
+  creditors = people with positive net (others owe them)
+  debtors   = people with negative net (they owe others)
+
+Step 3 — Greedily match largest debtor with largest creditor:
+  While any debt remains:
+    take biggest debtor (owes the most)
+    take biggest creditor (is owed the most)
+    settlement = min(|debtor|, creditor)
+    record: debtor pays creditor that amount
+    reduce both balances by settlement
+
+Result: minimum number of bank transfers to clear all debts
+```
+
+### Currency Conversion Flow
+```
+File: client/src/utils/currencyUtils.js
+
+convert(amount, fromCurrency, toCurrency, rates)
+  1. toBase: amount × rates[fromCurrency]  → gives INR amount
+  2. fromBase: inrAmount / rates[toCurrency] → gives target amount
+
+fmt(amount, currencyCode)
+  → "₹5,000.00" | "$59.88" | "¥664" (JPY has no decimals)
+
+Rate refresh (server):
+  jobs/currencyRefresh.job.js runs every 60 minutes
+  → hits ExchangeRate-API with base=INR
+  → upserts all rates into CurrencyRate table
+  → client fetches fresh rates on app load via GET /api/currency/rates
+```
+
+### Spending Personality Engine
+```
+File: client/src/utils/personalityEngine.js
+
+Input:  all splits for a user in a group, each with a vibeTag
+Output: { label, emoji, topCategory, topPercent, totalSpent }
+
+Logic:
+  tally spend per tag → find highest % category → map to label
+
+Labels:
+  food   > 40%  →  "The Foodie"         🍕
+  drinks > 35%  →  "The Party Starter"  🍺
+  travel > 40%  →  "The Uber Caller"    🚗
+  fun    > 40%  →  "The Adventurer"     🎡
+  stay   > 40%  →  "Comfort King/Queen" 🛏
+  mixed         →  "The Balanced One"   ⚖️
+```
+
+### Nudge Message Templates
+```
+File: client/src/constants/nudgeTones.js
+
+gentle:  "Hey {name}! Just a friendly reminder — you owe {amount}. No rush 😊"
+firm:    "Hi {name}, please settle your share of {amount} when you can."
+savage:  "{name}. {amount}. Still waiting. You know who you are. 👀"
+```
+
+---
+
+## Feature Summary
+
+| Feature | Key Files | How It Works |
+|---|---|---|
+| Multi-currency converter | `CurrencyConverter.jsx`, `currencyService.js`, `currencyUtils.js` | User picks amount + currency → converted to all others using cached rates |
+| Group expense split | `ExpenseForm.jsx`, `SplitTypeSelector.jsx`, `splitUtils.js` | 4 split modes; all amounts stored in INR in DB |
+| AI receipt scanner | `ReceiptScanner.jsx`, `receipt.service.js` (server) | Photo → GPT-4o Vision → JSON items → assign to members |
+| Debt simplification | `debtSimplifier.js`, `balance.service.js` | Graph algorithm minimizes number of payments |
+| Spending personality | `personalityEngine.js`, `SpendingPersonality.jsx` | Tallies spend per tag, maps to fun label |
+| Nudge system | `NudgeButton.jsx`, `nudge.service.js` | Pick tone → FCM push notification sent |
+| Spin-to-pay | `SpinWheel.jsx` | CSS animation wheel, random member selected |
+| Recurring expenses | `RecurringToggle.jsx`, `recurringExpense.job.js` | Daily cron auto-logs expenses on set day of month |
+| Timeline view | `TimelineView.jsx`, `dateUtils.js` | Expenses grouped by date in vertical scroll |
+
+---
+
+## Environment Variables
+
+```bash
+# server/.env
+DATABASE_URL=postgresql://user:password@host:5432/splitwave
+FIREBASE_PROJECT_ID=your-project-id
+FIREBASE_PRIVATE_KEY="-----BEGIN PRIVATE KEY-----\n..."
+FIREBASE_CLIENT_EMAIL=firebase-adminsdk@your-project.iam.gserviceaccount.com
+EXCHANGERATE_API_KEY=your_exchangerate_api_key
+OPENAI_API_KEY=your_openai_key
+FIREBASE_STORAGE_BUCKET=your-project.appspot.com
+
+# client/.env
+VITE_API_BASE_URL=http://localhost:5000/api
+VITE_FIREBASE_API_KEY=your_firebase_web_api_key
+VITE_FIREBASE_AUTH_DOMAIN=your-project.firebaseapp.com
+VITE_FIREBASE_PROJECT_ID=your-project-id
+VITE_FIREBASE_STORAGE_BUCKET=your-project.appspot.com
+```
+
+---
+
+## Recommended Build Order
+
+```
+Phase 1 — Foundation
+  1. Prisma schema + DB setup
+  2. Firebase Auth + auth middleware
+  3. User profile (register / login)
+
+Phase 2 — Core Features
+  4. Group CRUD (create, add members, view)
+  5. Expense CRUD (add expense, equal split only)
+  6. Balance calculator + debt simplification
+  7. Mark settled
+
+Phase 3 — Currency
+  8. ExchangeRate-API integration
+  9. Currency converter page
+  10. Multi-currency group split (store in INR, display in home currency)
+
+Phase 4 — Smart Split
+  11. Percentage split (sliders)
+  12. Exact split (manual amounts)
+  13. Itemized split (manual items)
+
+Phase 5 — Unique Features
+  14. AI receipt scanner (GPT-4o Vision)
+  15. Spending personality + analytics charts
+  16. Nudge system (FCM push)
+  17. Recurring expenses (cron job)
+  18. Spin-to-pay wheel
+  19. Timeline view
+
+Phase 6 — Polish
+  20. Mobile responsiveness
+  21. Empty states + error handling
+  22. Loading skeletons
+  23. Deploy (Vercel + Railway)
+```

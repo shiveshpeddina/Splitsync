@@ -1,0 +1,126 @@
+.list {
+  display: flex;
+  flex-direction: column;
+  padding: 0 20px 24px 20px;
+  gap: 24px;
+}
+
+.emptyState {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 48px 20px;
+  color: var(--color-text-muted);
+  text-align: center;
+}
+
+.emptyIcon {
+  font-size: 40px;
+  margin-bottom: 12px;
+}
+
+.settlementRow {
+  background-color: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  padding: 20px;
+  box-shadow: var(--shadow-card);
+}
+
+.transactionVisual {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 24px;
+}
+
+.party {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  width: 64px;
+}
+
+.name {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--color-text);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  width: 100%;
+  text-align: center;
+}
+
+.lineArea {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 0 16px;
+  position: relative;
+}
+
+.amountBold {
+  font-family: var(--font-mono);
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--color-primary);
+  margin-bottom: 8px;
+}
+
+.track {
+  width: 100%;
+  height: 2px;
+  background-color: var(--color-surface-2);
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.line {
+  height: 2px;
+  background-color: var(--color-primary);
+  position: absolute;
+  left: 0;
+  top: 0;
+}
+
+.arrowHead {
+  position: absolute;
+  right: -4px;
+  top: -3px;
+  width: 0; 
+  height: 0; 
+  border-top: 4px solid transparent;
+  border-bottom: 4px solid transparent;
+  border-left: 6px solid var(--color-primary);
+}
+
+.convertedText {
+  font-size: 11px;
+  color: var(--color-text-muted);
+  margin-top: 6px;
+}
+
+.actionRow {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  flex-wrap: wrap; /* On very small screens, let buttons wrap */
+}
+
+.actionBtn {
+  flex: 1; /* Make buttons share space equally */
+  min-width: fit-content;
+}
+
+@media (max-width: 480px) {
+  .actionBtn {
+     padding: 8px !important;
+     font-size: 11px !important;
+  }
+}

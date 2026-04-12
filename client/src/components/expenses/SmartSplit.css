@@ -1,0 +1,95 @@
+.smart-split-container {
+  margin-top: 16px;
+  background: #ffffff;
+  border: 1px solid #eeeeee;
+  border-radius: 16px;
+  padding: 16px;
+}
+
+.split-status {
+  text-align: right;
+  margin-bottom: 16px;
+  font-size: 14px;
+}
+
+.split-input-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 12px 0;
+  border-bottom: 1px dashed #f0f0f0;
+}
+
+.split-input-row:last-child {
+  border-bottom: none;
+  padding-bottom: 0;
+}
+
+.split-member-info {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-weight: 600;
+  font-size: 14px;
+  color: #1a1a1a;
+}
+
+.split-member-info img {
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.slider-container {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex: 1;
+  max-width: 65%;
+}
+
+.slider-container input[type="range"] {
+  flex: 1;
+  accent-color: #8add5c;
+  cursor: pointer;
+}
+
+.slider-val {
+  min-width: 44px;
+  text-align: right;
+  font-weight: 700;
+  font-size: 14px;
+  color: #1a1a1a;
+}
+
+.amount-input-container {
+  display: flex;
+  align-items: center;
+  background: #f5f5f5;
+  border-radius: 8px;
+  padding: 8px 12px;
+  width: 130px;
+}
+
+.input-prefix {
+  font-size: 14px;
+  color: #5a5a5a;
+  margin-right: 6px;
+}
+
+.smart-number-input {
+  border: none;
+  background: transparent;
+  width: 100%;
+  font-size: 14px;
+  font-weight: 700;
+  color: #1a1a1a;
+  outline: none;
+  text-align: right;
+}
+
+.smart-number-input::placeholder {
+  color: #a0a0a0;
+  font-weight: 500;
+}

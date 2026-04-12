@@ -1,0 +1,90 @@
+.headerContainer {
+  display: flex;
+  flex-direction: column;
+  background-color: var(--color-surface);
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  border-bottom: 1px solid var(--color-border);
+}
+
+.topBar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 12px 20px;
+}
+
+.title {
+  font-family: var(--font-display);
+  font-size: 22px;
+  font-weight: 700;
+  margin: 0;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: var(--color-text);
+}
+
+.emoji {
+  font-size: 24px;
+}
+
+.iconButton {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  color: var(--color-text);
+  transition: background-color 0.2s ease;
+  margin: -8px; /* Offset padding */
+}
+
+.iconButton:hover {
+  background-color: var(--color-surface-2);
+}
+
+.dangerIcon {
+  color: var(--color-danger);
+}
+
+.dangerIcon:hover {
+  background-color: rgba(240, 62, 62, 0.1);
+}
+
+.actionPillsRow {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 0 20px 16px 20px;
+}
+
+.actionPill {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 8px 16px;
+  border-radius: var(--radius-pill);
+  font-weight: 600;
+  font-size: 13px;
+  border: 1.5px solid transparent;
+  transition: all 0.2s ease;
+}
+
+.actionPill:hover {
+  transform: translateY(-1px);
+}
+
+.pillSpin {
+  background-color: #fff8e6;
+  border-color: #f59f00;
+  color: #b45309;
+}
+
+.pillInsights {
+  background-color: #eff3ff;
+  border-color: #4263eb;
+  color: #2f4ac0;
+}

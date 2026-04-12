@@ -1,0 +1,113 @@
+.nudge-picker-container {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.nudge-picker-desc {
+  color: var(--text-secondary);
+  font-size: 0.95rem;
+  margin: 0;
+}
+
+.nudge-tone-options {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1rem;
+}
+
+.nudge-tone-card {
+  background: var(--surface-bg);
+  border: 2px solid transparent;
+  border-radius: var(--radius-md);
+  padding: 1rem;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 0.5rem;
+}
+
+.nudge-tone-card:hover {
+  background: var(--surface-bg-hover);
+}
+
+.nudge-tone-card.selected {
+  border-color: var(--tone-color);
+  background: color-mix(in srgb, var(--tone-color) 10%, transparent);
+}
+
+.nudge-tone-header {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.25rem;
+}
+
+.nudge-tone-emoji {
+  font-size: 1.5rem;
+}
+
+.nudge-tone-label {
+  font-weight: 600;
+  color: var(--text-primary);
+}
+
+.nudge-tone-desc {
+  font-size: 0.75rem;
+  color: var(--text-muted);
+  margin: 0;
+}
+
+.nudge-preview-box {
+  background: var(--surface-bg-alt);
+  border-left: 4px solid var(--accent-gradient-start, #3b82f6);
+  padding: 1rem;
+  border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+  font-style: italic;
+}
+
+.preview-label {
+  display: block;
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  margin-bottom: 0.5rem;
+  font-weight: 600;
+  font-style: normal;
+}
+
+.preview-text {
+  margin: 0;
+  color: var(--text-primary);
+  font-size: 0.95rem;
+  line-height: 1.4;
+}
+
+.nudge-error {
+  color: var(--error-color, #ef4444);
+  font-size: 0.85rem;
+  background: color-mix(in srgb, var(--error-color, #ef4444) 10%, transparent);
+  padding: 0.75rem;
+  border-radius: var(--radius-sm);
+}
+
+.nudge-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 1rem;
+  margin-top: 1rem;
+}
+
+@media (max-width: 600px) {
+  .nudge-tone-options {
+    grid-template-columns: 1fr;
+  }
+  
+  .nudge-tone-card {
+    flex-direction: row;
+    text-align: left;
+  }
+}

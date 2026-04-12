@@ -1,0 +1,43 @@
+.container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+}
+
+.label {
+  font-size: 15px;
+  color: var(--color-text);
+  font-weight: 500;
+}
+
+.toggle {
+  width: 44px;
+  height: 24px;
+  background-color: #cbd5e1;
+  border-radius: var(--radius-pill);
+  display: flex;
+  align-items: center;
+  padding: 2px;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+  flex-shrink: 0;
+}
+
+.toggle.checked {
+  background-color: var(--color-primary);
+  justify-content: flex-end;
+}
+
+.toggle.disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.thumb {
+  width: 20px;
+  height: 20px;
+  background-color: white;
+  border-radius: 50%;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}

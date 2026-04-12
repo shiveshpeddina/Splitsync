@@ -1,0 +1,42 @@
+.pageContainer {
+  min-height: 100vh;
+  background-color: var(--color-bg);
+  display: flex;
+  flex-direction: column;
+}
+
+.content {
+  flex: 1;
+  max-width: var(--max-content-width, 600px);
+  margin: 0 auto;
+  width: 100%;
+}
+
+.tabSectionHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 20px;
+  margin-bottom: 16px;
+}
+
+.tabSectionTitle {
+  font-family: var(--font-display);
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--color-text);
+  margin: 0;
+}
+
+.tabSectionSubtitle {
+  font-size: 13px;
+  color: var(--color-text-muted);
+}
+
+.addBtn {
+  margin-left: 12px;
+}
+
+.tabContentArea {
+  position: relative;
+}

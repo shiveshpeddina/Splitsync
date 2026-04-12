@@ -1,0 +1,73 @@
+.balance-card {
+  padding: var(--space-5);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+}
+
+.balance-card-people {
+  display: flex;
+  align-items: center;
+  gap: var(--space-4);
+}
+
+.balance-card-person {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-2);
+  min-width: 70px;
+}
+
+.balance-card-name {
+  font-size: var(--text-sm);
+  font-weight: 600;
+  text-align: center;
+}
+
+.balance-card-arrow {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-1);
+  position: relative;
+}
+
+.arrow-line {
+  width: 100%;
+  height: 2px;
+  background: var(--gradient-primary);
+  border-radius: 1px;
+}
+
+.arrow-amount-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2px;
+}
+
+.arrow-amount {
+  font-family: var(--font-display);
+  font-size: var(--text-lg);
+  font-weight: 700;
+  color: var(--primary-400);
+}
+
+.arrow-amount-secondary {
+  font-size: 11px;
+  color: var(--text-muted, #94a3b8);
+  font-weight: 500;
+}
+
+.arrow-head {
+  color: var(--primary-400);
+  font-size: var(--text-xl);
+}
+
+.balance-card-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: var(--space-2);
+}

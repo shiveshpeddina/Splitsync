@@ -1,0 +1,308 @@
+.container {
+  display: flex;
+  min-height: 100vh;
+  width: 100%;
+  background-color: var(--color-bg);
+}
+
+/* Left Panel */
+.leftPanel {
+  display: none;
+  width: 55%;
+  background-color: var(--color-accent);
+  position: relative;
+  overflow: hidden;
+  align-items: center;
+  justify-content: center;
+}
+
+@media (min-width: 768px) {
+  .leftPanel {
+    display: flex;
+  }
+}
+
+.blob {
+  position: absolute;
+  bottom: -20%;
+  left: -10%;
+  width: 600px;
+  height: 600px;
+  background: radial-gradient(circle, rgba(61,186,95,0.15) 0%, rgba(61,186,95,0) 70%);
+  border-radius: 50%;
+  filter: blur(40px);
+  animation: pulse 8s ease-in-out infinite alternate;
+}
+
+@keyframes pulse {
+  0% { transform: scale(1) translate(0, 0); }
+  100% { transform: scale(1.1) translate(20px, -20px); }
+}
+
+.leftContent {
+  position: relative;
+  z-index: 10;
+  width: 80%;
+  max-width: 500px;
+}
+
+.brandLogoWrap {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.brandLogo {
+  width: 56px;
+  height: 56px;
+  border-radius: 14px;
+  object-fit: cover;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.25);
+}
+
+.brandName {
+  font-family: var(--font-display);
+  font-size: 48px;
+  font-weight: 700;
+  color: white;
+  margin: 0;
+  letter-spacing: -0.02em;
+}
+
+.tagline {
+  font-family: var(--font-body);
+  font-size: 18px;
+  color: rgba(255, 255, 255, 0.7);
+  margin-top: 12px;
+  margin-bottom: 60px;
+}
+
+/* Mockup Cards */
+.mockupContainer {
+  position: relative;
+  width: 100%;
+  height: 250px;
+}
+
+.mockupCard {
+  background: white;
+  border-radius: var(--radius-md);
+  padding: 16px;
+  box-shadow: 0 12px 32px rgba(0,0,0,0.2);
+  width: 80%;
+  position: absolute;
+}
+
+.mockupHeader {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.mockupIcon {
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  background: var(--color-surface-2);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 20px;
+}
+
+.mockupTitle {
+  font-family: var(--font-body);
+  font-weight: 600;
+  font-size: 15px;
+  color: var(--color-text);
+}
+
+.mockupDate {
+  font-size: 12px;
+  color: var(--color-text-muted);
+}
+
+.mockupAmount {
+  font-family: var(--font-mono);
+  font-weight: 700;
+  font-size: 16px;
+  color: var(--color-text);
+}
+
+
+/* Right Panel (Auth Form) */
+.rightPanel {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+  background-color: var(--color-surface);
+}
+
+@media (min-width: 768px) {
+  .rightPanel {
+    width: 45%;
+  }
+}
+
+.formContainer {
+  width: 100%;
+  max-width: 400px;
+}
+
+.formLogo {
+  font-family: var(--font-display);
+  font-size: 28px;
+  font-weight: 700;
+  color: var(--color-text);
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 64px;
+}
+
+.formLogoImg {
+  width: 36px;
+  height: 36px;
+  border-radius: 10px;
+  object-fit: cover;
+}
+
+@media (min-width: 768px) {
+  .formLogo {
+    display: none; /* Hide on desktop as it's on the left panel */
+  }
+}
+
+.formWrapper {
+  width: 100%;
+}
+
+.formHeader {
+  margin-bottom: 32px;
+}
+
+.welcomeText {
+  font-family: var(--font-display);
+  font-size: 32px;
+  font-weight: 700;
+  color: var(--color-text);
+  margin: 0 0 8px 0;
+  letter-spacing: -0.01em;
+}
+
+.subtitle {
+  color: var(--color-text-muted);
+  font-size: 15px;
+  margin: 0;
+}
+
+.errorMessage {
+  background-color: rgba(240, 62, 62, 0.1);
+  color: var(--color-danger);
+  padding: 12px 16px;
+  border-radius: var(--radius-sm);
+  font-size: 14px;
+  margin-bottom: 24px;
+}
+
+.inputs {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.passwordToggle {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--color-text-muted);
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 4px;
+}
+
+.passwordToggle:hover {
+  color: var(--color-text);
+}
+
+.currencySelect {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.inputLabel {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--color-text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.02em;
+}
+
+.currencyWrapper {
+  border: 1.5px solid var(--color-border);
+  border-radius: var(--radius-sm);
+  padding: 2px;
+}
+
+.divider {
+  display: flex;
+  align-items: center;
+  margin: 32px 0;
+}
+
+.dividerLine {
+  flex: 1;
+  height: 1px;
+  background-color: var(--color-border);
+}
+
+.dividerText {
+  color: var(--color-text-muted);
+  padding: 0 16px;
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.googleButton {
+  background-color: white;
+  border: 1px solid var(--color-border);
+  color: var(--color-text);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+}
+
+.googleButton:hover {
+  background-color: var(--color-surface-2);
+}
+
+.googleIcon {
+  width: 20px;
+  height: 20px;
+}
+
+.switchMode {
+  text-align: center;
+  margin-top: 32px;
+  color: var(--color-text-muted);
+  font-size: 15px;
+}
+
+.switchModeButton {
+  color: var(--color-primary);
+  font-weight: 600;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  margin-left: 4px;
+}
+
+.switchModeButton:hover {
+  text-decoration: underline;
+}

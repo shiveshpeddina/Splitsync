@@ -1,0 +1,37 @@
+.vibe-tag-picker {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2);
+}
+
+.vibe-tag-btn {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  padding: var(--space-2) var(--space-3);
+  border-radius: var(--radius-full);
+  background: var(--bg-card);
+  border: 1px solid var(--border-default);
+  transition: all var(--transition-fast);
+  font-size: var(--text-sm);
+}
+
+.vibe-tag-btn:hover {
+  border-color: var(--tag-color);
+  background: color-mix(in srgb, var(--tag-color) 10%, transparent);
+}
+
+.vibe-tag-active {
+  background: color-mix(in srgb, var(--tag-color) 20%, transparent) !important;
+  border-color: var(--tag-color) !important;
+  color: var(--tag-color);
+  box-shadow: 0 0 12px color-mix(in srgb, var(--tag-color) 25%, transparent);
+}
+
+.vibe-tag-emoji {
+  font-size: 1rem;
+}
+
+.vibe-tag-label {
+  font-weight: 500;
+}

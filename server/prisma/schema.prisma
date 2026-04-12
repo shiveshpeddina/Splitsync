@@ -1,0 +1,118 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id               String        @id @default(uuid())
+  name             String
+  email            String        @unique
+  phone            String?
+  homeCurrency     String        @default("INR")
+  fcmToken         String?
+  autoSMSReminders Boolean       @default(false)
+  isGhost          Boolean       @default(false)
+  createdAt        DateTime      @default(now())
+  groups           GroupMember[]
+  paidExpenses     Expense[]     @relation("Payer")
+  splits           Split[]
+  friendships      Friendship[]  @relation("UserFriends")
+  friendOf         Friendship[]  @relation("FriendUsers")
+}
+
+model Group {
+  id           String        @id @default(uuid())
+  name         String
+  emoji        String?
+  baseCurrency String        @default("INR")
+  inviteToken  String        @unique @default(uuid())
+  inviteExpiry DateTime?
+  createdAt    DateTime      @default(now())
+  members      GroupMember[]
+  expenses     Expense[]
+  creatorId    String?
+}
+
+model GroupMember {
+  id      String @id @default(uuid())
+  user    User   @relation(fields: [userId], references: [id])
+  userId  String
+  group   Group  @relation(fields: [groupId], references: [id])
+  groupId String
+  role    String @default("member")
+
+  @@unique([userId, groupId])
+}
+
+model Expense {
+  id           String   @id @default(uuid())
+  group        Group    @relation(fields: [groupId], references: [id])
+  groupId      String
+  description  String
+  amount       Float
+  currency     String
+  amountInBase Float
+  vibeTag      String?
+  payer        User     @relation("Payer", fields: [payerId], references: [id])
+  payerId      String
+  splitType    String   @default("equal")
+  isRecurring  Boolean  @default(false)
+  recurringDay Int?
+  receiptUrl   String?
+  createdAt    DateTime @default(now())
+  splits       Split[]
+}
+
+model Split {
+  id             String    @id @default(uuid())
+  expense        Expense   @relation(fields: [expenseId], references: [id])
+  expenseId      String
+  user           User      @relation(fields: [userId], references: [id])
+  userId         String
+  amount         Float
+  percentage     Float?
+  settled        Boolean   @default(false)
+  settledAt      DateTime?
+  lastReminderAt DateTime?
+}
+
+model Settlement {
+  id         String   @id @default(uuid())
+  groupId    String
+  fromUserId String
+  toUserId   String
+  amount     Float
+  currency   String
+  settledAt  DateTime @default(now())
+}
+
+model CurrencyRate {
+  id        String   @id @default(uuid())
+  base      String
+  target    String
+  rate      Float
+  updatedAt DateTime @updatedAt
+
+  @@unique([base, target])
+}
+
+model Friendship {
+  id        String   @id @default(uuid())
+  userId          String
+  friendId        String
+  user            User     @relation("UserFriends", fields: [userId], references: [id])
+  friend          User     @relation("FriendUsers", fields: [friendId], references: [id])
+  alias           String?
+  avatar          String?
+  customCurrency  String?
+  createdAt       DateTime @default(now())
+
+  @@unique([userId, friendId])
+}

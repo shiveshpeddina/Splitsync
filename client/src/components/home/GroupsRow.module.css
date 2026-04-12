@@ -1,0 +1,122 @@
+.section {
+  padding: 0 0 24px 0;
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 24px;
+  margin-bottom: 12px;
+}
+
+.title {
+  font-family: var(--font-display);
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--color-text);
+  margin: 0;
+}
+
+.createLink {
+  color: var(--color-primary);
+  font-size: 13px;
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.createLink:hover {
+  text-decoration: underline;
+}
+
+.scrollRow {
+  display: flex;
+  overflow-x: auto;
+  gap: 12px;
+  padding: 8px 24px 16px 24px;
+  scroll-snap-type: x mandatory;
+}
+
+.scrollRow::-webkit-scrollbar {
+  display: none; /* Hide scrollbar for cleaner look */
+}
+
+.groupCard {
+  min-width: 120px;
+  width: 120px;
+  height: 130px;
+  background-color: var(--color-surface);
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-card);
+  border: 1px solid var(--color-border);
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  cursor: pointer;
+  scroll-snap-align: start;
+  flex-shrink: 0;
+  transition: all 0.2s ease;
+}
+
+.groupCard:hover {
+  transform: scale(1.04);
+  border-color: var(--color-primary);
+  box-shadow: 0 8px 24px rgba(61,186,95,0.15);
+}
+
+.emoji {
+  font-size: 40px;
+  line-height: 1;
+  margin-bottom: 12px;
+}
+
+.info {
+  width: 100%;
+}
+
+.name {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--color-text);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  width: 100%;
+}
+
+.members {
+  font-size: 11px;
+  color: var(--color-text-muted);
+  margin-top: 4px;
+}
+
+.newCard {
+  border: 2px dashed var(--color-border);
+  background-color: var(--color-bg);
+  box-shadow: none;
+}
+
+.newCard:hover {
+  border-color: var(--color-primary);
+  background-color: var(--color-primary-light);
+}
+
+.newIconWrapper {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background-color: var(--color-surface-2);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 12px;
+  color: var(--color-text-muted);
+}
+
+.newCard:hover .newIconWrapper {
+  background-color: var(--color-primary);
+  color: white;
+}

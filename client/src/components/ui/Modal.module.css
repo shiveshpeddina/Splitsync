@@ -1,0 +1,124 @@
+.backdrop {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.5);
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+  z-index: 1000;
+}
+
+.modalContainer {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  display: flex;
+  align-items: flex-end; /* Bottom sheet on mobile */
+  justify-content: center;
+  z-index: 1001;
+  pointer-events: none;
+}
+
+.modal {
+  background: var(--color-surface);
+  width: 100%;
+  pointer-events: auto;
+  border-radius: 24px 24px 0 0;
+  padding: 0 20px 20px 20px;
+  display: flex;
+  flex-direction: column;
+  max-height: 95vh; /* Increase max-height slightly to allow more content */
+  overflow: hidden; /* Hide overflow directly on modal */
+}
+
+.dragHandleContainer {
+  display: flex;
+  justify-content: center;
+  padding: 12px 0 16px 0;
+  cursor: grab;
+  touch-action: none; /* Prevent browser scrolling when dragging handle */
+}
+
+.dragHandleContainer:active {
+  cursor: grabbing;
+}
+
+.dragHandle {
+  width: 36px;
+  height: 4px;
+  background: #d1d5db;
+  border-radius: 4px;
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 12px;
+}
+
+.title {
+  font-family: var(--font-display);
+  font-size: 20px;
+  font-weight: 600;
+  color: var(--color-text);
+  margin: 0;
+}
+
+.closeButton {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  color: var(--color-text-muted);
+  background: var(--color-surface-2);
+  transition: all 0.2s ease;
+}
+
+.closeButton:hover {
+  background: #e2e8f0;
+  color: var(--color-text);
+}
+
+.content {
+  overflow-y: auto;
+  padding-bottom: env(safe-area-inset-bottom, 20px); /* Add safe area for iOS */
+  /* Scrollbar styling for content */
+}
+
+.content::-webkit-scrollbar {
+  width: 4px;
+}
+.content::-webkit-scrollbar-thumb {
+  background: #cbd5e1;
+  border-radius: var(--radius-pill);
+}
+
+/* Desktop styles */
+@media (min-width: 768px) {
+  .modalContainer {
+    align-items: center;
+    padding: 24px;
+  }
+
+  .modal {
+    max-width: 520px;
+    border-radius: 24px;
+    padding: 28px;
+    box-shadow: var(--shadow-modal);
+  }
+
+  .dragHandleContainer {
+    display: none; /* Hide drag handle on desktop */
+  }
+
+  .header {
+    margin-bottom: 32px;
+  }
+}

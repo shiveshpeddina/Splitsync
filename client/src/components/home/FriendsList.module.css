@@ -1,0 +1,114 @@
+.section {
+  padding: 0 0 24px 0;
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 24px;
+  margin-bottom: 12px;
+}
+
+.titleGroup {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.title {
+  font-family: var(--font-display);
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--color-text);
+  margin: 0;
+}
+
+.addBadge {
+  background-color: transparent;
+  color: var(--color-primary);
+  border: 1.5px solid var(--color-primary);
+  border-radius: var(--radius-pill);
+  padding: 4px 10px;
+  font-size: 11px;
+  font-weight: 600;
+  transition: all 0.2s ease;
+}
+
+.addBadge:hover {
+  background-color: var(--color-primary-light);
+}
+
+.seeMore {
+  color: var(--color-text-muted);
+  font-size: 13px;
+  text-decoration: underline;
+  background: none;
+  border: none;
+  padding: 0;
+}
+
+.seeMore:hover {
+  color: var(--color-text);
+}
+
+.scrollRow {
+  display: flex;
+  overflow-x: auto;
+  gap: 16px;
+  padding: 8px 24px 16px 24px;
+  scroll-snap-type: x mandatory;
+}
+
+.scrollRow::-webkit-scrollbar {
+  display: none;
+}
+
+.friendItem {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  scroll-snap-align: start;
+  cursor: pointer;
+}
+
+.friendItem:hover .avatar {
+  transform: translateY(-2px);
+}
+
+.avatar {
+  transition: transform 0.2s ease;
+}
+
+.name {
+  font-size: 12px;
+  font-weight: 500;
+  color: var(--color-text);
+  text-align: center;
+  width: 64px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.emptyState {
+  font-size: 13px;
+  color: var(--color-text-muted);
+  font-style: italic;
+}
+
+.avatarWrap {
+  position: relative;
+  transition: transform 0.2s ease;
+}
+
+.friendItem:hover .avatarWrap {
+  transform: translateY(-2px);
+}
+
+.badgePos {
+  position: absolute;
+  bottom: -4px;
+  right: -4px;
+}

@@ -1,0 +1,71 @@
+.list {
+  display: flex;
+  flex-direction: column;
+  padding: 0 20px 24px 20px;
+}
+
+.row {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 12px;
+  border-radius: var(--radius-md);
+  transition: background-color 0.2s ease;
+  margin: 0 -12px;
+}
+
+.row:hover {
+  background-color: var(--color-surface-2);
+}
+
+.info {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+}
+
+.name {
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--color-text);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.identifier {
+  font-size: 12px;
+  color: var(--color-text-muted);
+  margin-top: 2px;
+}
+
+.adminBadge {
+  background-color: var(--color-surface-2);
+  color: var(--color-text-muted);
+  padding: 4px 8px;
+  border-radius: var(--radius-pill);
+  font-size: 11px;
+  font-weight: 600;
+}
+
+.removeBtn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  border: none;
+  background: transparent;
+  color: var(--color-text-muted);
+  cursor: pointer;
+  transition: all 0.2s ease;
+  flex-shrink: 0;
+}
+
+.removeBtn:hover {
+  background: rgba(240, 62, 62, 0.1);
+  color: #f03e3e;
+  transform: scale(1.1);
+}
