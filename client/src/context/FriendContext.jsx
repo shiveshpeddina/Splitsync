@@ -44,7 +44,7 @@ export const FriendProvider = ({ children }) => {
   const updateFriend = async (friendId, data) => {
     try {
       const res = await api.put(`/friends/${friendId}`, data);
-      setFriends(prev => prev.map(f => f.id === friendId ? { ...f, ...res.data.data } : f));
+      setFriends(prev => prev.map(f => f.id === friendId ? { ...f, ...res.data } : f));
       return res.data;
     } catch (err) {
       console.error('Failed to update friend', err);

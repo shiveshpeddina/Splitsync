@@ -18,15 +18,22 @@ const getGroupsForUser = async (userId) => {
     where: { userId }
   });
   
-  const aliasMap = {};
+  const friendDataMap = {};
   friendships.forEach(f => {
-    if (f.alias) aliasMap[f.friendId] = f.alias;
+    friendDataMap[f.friendId] = {
+      alias: f.alias,
+      customCurrency: f.customCurrency,
+      avatar: f.avatar
+    };
   });
 
   return groups.map(group => {
     group.members = group.members.map(member => {
-      if (aliasMap[member.user.id]) {
-        member.user.name = aliasMap[member.user.id];
+      const friendData = friendDataMap[member.user.id];
+      if (friendData) {
+        if (friendData.alias) member.user.name = friendData.alias;
+        if (friendData.customCurrency) member.user.customCurrency = friendData.customCurrency;
+        if (friendData.avatar) member.user.avatar = friendData.avatar;
       }
       return member;
     });
@@ -79,14 +86,21 @@ const getGroupById = async (groupId, userId) => {
     where: { userId }
   });
   
-  const aliasMap = {};
+  const friendDataMap = {};
   friendships.forEach(f => {
-    if (f.alias) aliasMap[f.friendId] = f.alias;
+    friendDataMap[f.friendId] = {
+      alias: f.alias,
+      customCurrency: f.customCurrency,
+      avatar: f.avatar
+    };
   });
 
   group.members = group.members.map(member => {
-    if (aliasMap[member.user.id]) {
-      member.user.name = aliasMap[member.user.id];
+    const friendData = friendDataMap[member.user.id];
+    if (friendData) {
+      if (friendData.alias) member.user.name = friendData.alias;
+      if (friendData.customCurrency) member.user.customCurrency = friendData.customCurrency;
+      if (friendData.avatar) member.user.avatar = friendData.avatar;
     }
     return member;
   });

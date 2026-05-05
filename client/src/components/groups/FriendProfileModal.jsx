@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { useFriends } from '../../context/FriendContext';
+import { useGroups } from '../../context/GroupContext';
 import Button from '../common/Button';
 import Input from '../common/Input';
 import CurrencySelector from '../currency/CurrencySelector';
@@ -7,6 +8,7 @@ import { AvatarDisplay, AVATAR_OPTIONS, getAvatarById } from '../common/AvatarPi
 
 export default function FriendProfileModal({ friend, onClose }) {
   const { updateFriend, deleteFriend } = useFriends();
+  const { fetchGroups } = useGroups();
   
   const [alias, setAlias] = useState(friend?.alias || '');
   const [avatar, setAvatar] = useState(friend?.avatar || null);
@@ -28,6 +30,7 @@ export default function FriendProfileModal({ friend, onClose }) {
         avatar: avatar || null,
         customCurrency: customCurrency || null
       });
+      fetchGroups();
       if (onClose) onClose();
     } catch (err) {
       console.error(err);
